@@ -1,0 +1,537 @@
+/*
+|--------------------------------------------------------------------------
+| Bookish Blog Page Styles
+|--------------------------------------------------------------------------
+| Page-specific styles only.
+| Keep this file separate from the main stylesheet.
+*/
+
+/* Blog page hero */
+.hero {
+    padding: 76px 0 70px;
+    background:
+        radial-gradient(circle at 82% 20%, rgba(213, 170, 99, 0.18), transparent 28%),
+        linear-gradient(125deg, #2d1b13 0%, #3e261b 48%, #68432e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero .row {
+    row-gap: 36px;
+}
+
+.hero .intro-excerpt {
+    max-width: 520px;
+    padding: 12px 0;
+}
+
+.hero .intro-excerpt h1 {
+    color: #fffaf2;
+    font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+}
+
+.hero .intro-excerpt p {
+    color: #eadbca;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 490px;
+}
+
+.hero .intro-excerpt p:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+    margin-bottom: 0;
+}
+
+.hero .hero-img-wrap {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero .hero-img-wrap img {
+    position: relative !important;
+    inset: auto !important;
+    display: block;
+    width: 100%;
+    max-width: 570px;
+    max-height: 410px;
+    height: auto;
+    padding: 0 !important;
+    object-fit: contain;
+    zoom: 1 !important;
+    filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.25));
+}
+
+.hero .hero-img-wrap::after {
+    right: -28px;
+    top: 10px;
+    opacity: 0.2;
+}
+
+/* Buttons within the blog hero and story banner */
+.hero .btn,
+.story-banner .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.hero .btn-secondary {
+    box-shadow: 0 8px 20px rgba(213, 170, 99, 0.18);
+}
+
+.hero .btn-white-outline:hover {
+    color: #3e261b;
+}
+
+/* Section heading */
+.blog-section {
+    padding: 88px 0 96px !important;
+    background: #f7f0e5;
+}
+
+.blog-section .section-heading,
+.testimonial-section .section-heading {
+    max-width: 760px;
+    margin: 0 auto 46px;
+    text-align: center;
+}
+
+.blog-section .section-heading .eyebrow,
+.testimonial-section .section-heading .eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #916744;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.blog-section .section-heading h2,
+.testimonial-section .section-heading h2 {
+    color: #3e261b;
+    font-size: clamp(1.9rem, 3vw, 2.7rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 16px;
+}
+
+.blog-section .section-heading p,
+.testimonial-section .section-heading p {
+    color: #796b60;
+    font-size: 15px;
+    line-height: 1.9;
+    margin: 0;
+}
+
+/* Story cards */
+.blog-section .row.g-4 {
+    align-items: stretch;
+}
+
+.blog-section .row.g-4 > [class*="col-"] {
+    display: flex;
+}
+
+.blog-section .post-entry {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #fffaf2;
+    border: 1px solid #e7d8c5;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(62, 38, 27, 0.055);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.blog-section .post-entry:hover {
+    transform: translateY(-7px);
+    border-color: #d5aa63;
+    box-shadow: 0 18px 35px rgba(62, 38, 27, 0.13);
+}
+
+.blog-section .post-entry .post-thumbnail {
+    display: block;
+    position: relative;
+    width: 100% !important;
+    height: 235px;
+    flex: 0 0 235px;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0;
+    background: #eadcc9;
+}
+
+.blog-section .post-entry .post-thumbnail::after {
+    content: "";
+    position: absolute;
+    inset: 45% 0 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, rgba(46, 27, 18, 0.14));
+}
+
+.blog-section .post-entry .post-thumbnail img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+    object-fit: cover !important;
+    object-position: center;
+    border-radius: 0 !important;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.blog-section .post-entry:hover .post-thumbnail img,
+.blog-section .post-entry:focus-within .post-thumbnail img {
+    opacity: 1;
+    transform: scale(1.055);
+}
+
+.blog-section .post-entry .post-content-entry {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 23px 23px 25px !important;
+}
+
+.blog-section .post-category {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 13px;
+    padding: 5px 11px;
+    border: 1px solid #ead9c2;
+    border-radius: 30px;
+    background: #f5ead8;
+    color: #805b3d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.blog-section .post-entry .post-content-entry h3 {
+    margin: 0 0 12px;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.45;
+}
+
+.blog-section .post-entry .post-content-entry h3 a {
+    color: #3e261b;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.blog-section .post-entry .post-content-entry h3 a:hover {
+    color: #916744;
+}
+
+.blog-section .post-entry .post-description {
+    margin: 0;
+    color: #796b60;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+/* Brand message banner */
+.story-banner {
+    position: relative;
+    overflow: hidden;
+    padding: 68px 0;
+    background:
+        radial-gradient(circle at 5% 15%, rgba(213, 170, 99, 0.17), transparent 25%),
+        linear-gradient(120deg, #3e261b, #68432e);
+}
+
+.story-banner::after {
+    content: "\f02d";
+    position: absolute;
+    right: 5%;
+    bottom: -70px;
+    color: rgba(255, 250, 242, 0.045);
+    font-family: "Font Awesome 6 Free";
+    font-size: 270px;
+    font-weight: 900;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.story-banner .container {
+    position: relative;
+    z-index: 1;
+}
+
+.story-banner .story-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 86px;
+    height: 86px;
+    border: 1px solid rgba(213, 170, 99, 0.55);
+    border-radius: 24px;
+    background: rgba(255, 250, 242, 0.08);
+    color: #e4bd7a;
+    font-size: 35px;
+}
+
+.story-banner h2 {
+    margin: 0 0 15px;
+    color: #fffaf2;
+    font-size: clamp(1.7rem, 2.8vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.story-banner p {
+    max-width: 690px;
+    color: #eadbca;
+    font-size: 14px;
+    line-height: 1.95;
+}
+
+.story-banner .btn-primary {
+    background: #d5aa63;
+    border-color: #d5aa63;
+    color: #3e261b;
+}
+
+.story-banner .btn-primary:hover {
+    background: #fffaf2;
+    border-color: #fffaf2;
+    color: #3e261b;
+}
+
+/* Reading inspiration section */
+.testimonial-section {
+    padding: 86px 0 100px !important;
+    background:
+        radial-gradient(circle at 50% 100%, rgba(181, 139, 98, 0.11), transparent 42%),
+        #fbf6ed;
+}
+
+.testimonial-section .section-heading {
+    margin-bottom: 38px;
+}
+
+.testimonial-section .testimonial-block {
+    padding: 43px 42px 36px;
+    border: 1px solid #e7d8c5;
+    border-radius: 22px;
+    background: rgba(255, 250, 242, 0.9);
+    box-shadow: 0 12px 35px rgba(62, 38, 27, 0.07);
+}
+
+.testimonial-section .testimonial-block blockquote {
+    margin: 0 auto 28px;
+    color: #68432e;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+    font-style: italic;
+    line-height: 1.8;
+}
+
+.testimonial-section .testimonial-block blockquote p {
+    margin: 0;
+}
+
+.testimonial-section .story-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    background: #efe0ca;
+    color: #68432e;
+    font-size: 24px;
+}
+
+.testimonial-section .author-info h3 {
+    margin: 0 0 4px;
+    color: #3e261b;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.testimonial-section .author-info .position {
+    color: #916744;
+    font-size: 13px;
+}
+
+/* Keyboard accessibility */
+.blog-section a:focus-visible,
+.hero a:focus-visible,
+.story-banner a:focus-visible {
+    outline: 3px solid #d5aa63;
+    outline-offset: 4px;
+}
+
+/* Tablet */
+@media (max-width: 991.98px) {
+    .hero {
+        padding: 65px 0 55px;
+    }
+
+    .hero .hero-img-wrap {
+        min-height: 280px;
+    }
+
+    .hero .hero-img-wrap img {
+        max-height: 340px;
+    }
+
+    .blog-section {
+        padding: 65px 0 75px !important;
+    }
+
+    .blog-section .post-entry .post-thumbnail {
+        height: 210px;
+        flex-basis: 210px;
+    }
+
+    .blog-section .post-entry .post-content-entry {
+        padding: 19px !important;
+    }
+
+    .blog-section .post-entry .post-content-entry h3 {
+        font-size: 17px;
+    }
+
+    .story-banner {
+        padding: 55px 0;
+    }
+
+    .testimonial-section {
+        padding: 65px 0 75px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    .hero {
+        padding: 48px 0 42px;
+    }
+
+    .hero .intro-excerpt h1 {
+        font-size: 2.45rem;
+        letter-spacing: -0.8px;
+        margin-bottom: 18px;
+    }
+
+    .hero .intro-excerpt p {
+        font-size: 14px;
+    }
+
+    .hero .intro-excerpt p:last-child {
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .hero .intro-excerpt p:last-child .btn {
+        padding: 11px 17px;
+        font-size: 13px;
+    }
+
+    .hero .hero-img-wrap {
+        min-height: auto;
+        margin-top: 4px;
+    }
+
+    .hero .hero-img-wrap img {
+        max-height: 290px;
+        margin-top: 0 !important;
+    }
+
+    .blog-section {
+        padding: 52px 0 60px !important;
+    }
+
+    .blog-section .section-heading,
+    .testimonial-section .section-heading {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .blog-section .section-heading h2,
+    .testimonial-section .section-heading h2 {
+        font-size: 1.85rem;
+    }
+
+    .blog-section .section-heading p,
+    .testimonial-section .section-heading p {
+        font-size: 14px;
+    }
+
+    .blog-section .post-entry .post-thumbnail {
+        height: 230px;
+        flex-basis: 230px;
+    }
+
+    .blog-section .post-entry .post-content-entry {
+        padding: 20px !important;
+    }
+
+    .blog-section .post-entry .post-content-entry h3 {
+        font-size: 18px;
+    }
+
+    .story-banner {
+        padding: 48px 0;
+    }
+
+    .story-banner .story-icon {
+        width: 66px;
+        height: 66px;
+        border-radius: 18px;
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .story-banner h2 {
+        font-size: 1.75rem;
+    }
+
+    .story-banner .text-lg-end {
+        text-align: left !important;
+    }
+
+    .testimonial-section {
+        padding: 52px 0 65px !important;
+    }
+
+    .testimonial-section .testimonial-block {
+        padding: 30px 21px 27px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .blog-section .post-entry,
+    .blog-section .post-entry .post-thumbnail img,
+    .hero .btn {
+        transition: none;
+    }
+}

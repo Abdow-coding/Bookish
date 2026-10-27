@@ -1,0 +1,532 @@
+
+/* ========================================
+   BOOKISH - Warm Wooden Bookstore Theme
+======================================== */
+
+:root {
+    --wood-dark: #3e261b;
+    --wood: #68432e;
+    --wood-light: #916744;
+    --wood-soft: #b58b62;
+    --cream: #f7f0e5;
+    --paper: #fffaf2;
+    --gold: #d5aa63;
+    --text-dark: #35251d;
+    --text-muted: #796b60;
+    --border-color: #e7d8c5;
+    --white: #ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--text-muted);
+    font-family: "Inter", sans-serif;
+    line-height: 1.8;
+}
+
+a {
+    color: var(--wood);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--gold);
+}
+
+/* Navbar */
+
+.custom-navbar {
+    background: var(--wood-dark) !important;
+    padding: 20px 0;
+    box-shadow: 0 4px 18px rgba(40, 24, 15, 0.15);
+}
+
+.custom-navbar .navbar-brand {
+    color: var(--paper) !important;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.custom-navbar .navbar-brand span,
+.footer-logo span {
+    color: var(--gold);
+    opacity: 1;
+}
+
+.custom-navbar .custom-navbar-nav li a {
+    color: var(--paper) !important;
+    opacity: 0.78;
+}
+
+.custom-navbar .custom-navbar-nav li a:hover,
+.custom-navbar .custom-navbar-nav li.active a {
+    color: var(--gold) !important;
+    opacity: 1;
+}
+
+.custom-navbar .custom-navbar-nav li a:before {
+    background: var(--gold);
+    height: 3px;
+}
+
+.custom-navbar .navbar-toggler {
+    border-color: var(--gold);
+}
+
+/* Hero */
+
+.hero {
+    background:
+        linear-gradient(
+            110deg,
+            rgba(42, 25, 17, 0.97),
+            rgba(104, 67, 46, 0.94)
+        );
+    padding: 90px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    color: var(--paper);
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero p {
+    color: #eadbca;
+    font-size: 16px;
+    margin-bottom: 28px;
+}
+
+.hero .hero-img-wrap img {
+    max-height: 470px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.25));
+}
+
+.hero .hero-img-wrap:after {
+    opacity: 0.16;
+}
+
+/* Buttons */
+
+.btn {
+    background: var(--wood);
+    color: var(--white);
+    border: 1px solid var(--wood);
+    border-radius: 8px;
+    padding: 12px 26px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--wood-dark);
+    border-color: var(--wood-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn.btn-primary {
+    background: var(--wood);
+    border-color: var(--wood);
+}
+
+.btn.btn-primary:hover {
+    background: white;
+    border-color: var(--wood-dark);
+}
+
+.btn.btn-secondary {
+    background: var(--gold);
+    color: var(--wood-dark);
+    border-color: var(--gold);
+}
+
+.btn.btn-secondary:hover {
+    background: #e2bc7e;
+    border-color: #e2bc7e;
+    color: var(--wood-dark);
+}
+
+.btn.btn-white-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--paper);
+}
+
+.btn.btn-white-outline:hover {
+    background: var(--gold);
+    color: var(--wood-dark);
+}
+
+/* Sections */
+
+.section-title {
+    color: var(--wood-dark);
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.product-section,
+.why-choose-section,
+.we-help-section,
+.testimonial-section,
+.blog-section {
+    background-color: var(--cream);
+}
+
+.product-section,
+.why-choose-section,
+.we-help-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* Book cards */
+
+.product-section .product-item {
+    background: var(--paper);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 22px 16px 40px;
+    margin-top: 12px;
+    box-shadow: 0 5px 18px rgba(62, 38, 27, 0.05);
+    transition: all 0.3s ease;
+}
+
+.product-section .product-item:before {
+    background: #ead9c2;
+    border-radius: 12px;
+}
+
+.product-section .product-item:hover {
+    box-shadow: 0 15px 30px rgba(62, 38, 27, 0.12);
+}
+
+.product-section .product-item .product-thumbnail {
+    height: 210px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 24px;
+}
+
+.product-section .product-item h3 {
+    color: var(--wood-dark);
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.product-section .product-item strong {
+    color: var(--wood);
+}
+
+.product-section .product-item .icon-cross {
+    background: var(--wood-dark);
+}
+
+.product-section .product-item .icon-cross img {
+    filter: brightness(0) invert(1);
+}
+
+.product-section .product-item:hover .product-thumbnail {
+    top: -8px;
+}
+
+/* Feature icons */
+
+.feature h3 {
+    color: var(--wood-dark);
+    font-weight: 700;
+}
+
+.feature p {
+    color: var(--text-muted);
+}
+
+.feature .icon:before {
+    background: rgba(181, 139, 98, 0.25);
+}
+
+.custom-list li:before {
+    border-color: var(--wood-light);
+}
+
+/* Images */
+
+.why-choose-section .img-wrap img,
+.we-help-section .imgs-grid .grid img,
+.blog-section .post-thumbnail img {
+    border-radius: 12px;
+}
+
+.why-choose-section .img-wrap:before,
+.we-help-section .imgs-grid:before {
+    opacity: 0.35;
+}
+
+/* Popular books */
+
+.popular-product {
+    background: var(--paper);
+    padding: 25px 0;
+}
+
+.popular-product .product-item-sm {
+    padding: 16px;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--cream);
+}
+
+.popular-product .product-item-sm h3 {
+    color: var(--wood-dark);
+    font-weight: 700;
+}
+
+.popular-product .product-item-sm a {
+    color: var(--wood);
+}
+
+.popular-product .product-item-sm a:hover {
+    color: var(--wood-light);
+}
+
+.popular-product .product-item-sm .thumbnail:before {
+    background: #e9d8c2;
+    border-radius: 12px;
+}
+
+/* Authors slider */
+
+.testimonial-section {
+    padding: 75px 0;
+}
+
+.testimonial-slider-wrap .item .testimonial-block blockquote {
+    color: var(--text-muted);
+}
+
+.testimonial-slider-wrap .item .testimonial-block .author-info h3 {
+    color: var(--wood-dark);
+}
+
+.testimonial-slider-wrap .item .testimonial-block .author-info .position {
+    color: var(--wood-light);
+}
+
+.testimonial-slider-wrap #testimonial-nav > span {
+    background: #eadcc9;
+    color: var(--wood-dark);
+}
+
+.testimonial-slider-wrap #testimonial-nav > span:hover {
+    background: var(--wood-dark);
+    color: var(--white);
+}
+
+.testimonial-slider-wrap .tns-nav button:before {
+    background: #c9b49b;
+}
+
+.testimonial-slider-wrap .tns-nav button.tns-nav-active:before {
+    background: var(--wood);
+}
+
+/* Blog */
+
+.blog-section {
+    padding: 75px 0;
+}
+
+.blog-section .post-entry {
+    background: var(--paper);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.blog-section .post-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(62, 38, 27, 0.1);
+}
+
+.blog-section .post-thumbnail img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.blog-section .post-content-entry {
+    padding: 20px;
+}
+
+.blog-section .post-content-entry h3 a {
+    color: var(--wood-dark);
+    font-weight: 700;
+}
+
+.blog-section .post-content-entry .meta {
+    color: var(--text-muted);
+}
+
+/* Footer */
+
+.footer-section {
+    background: var(--wood-dark);
+    color: #e4d4c2;
+    padding: 80px 0 25px;
+}
+
+.footer-section h3,
+.footer-section .footer-logo,
+.footer-section .footer-logo:hover {
+    color: var(--paper);
+}
+
+.footer-section .footer-logo {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.footer-section p {
+    color: #d0bca7;
+}
+
+.footer-section a {
+    color: #e4d4c2;
+}
+
+.footer-section a:hover {
+    color: var(--gold);
+}
+
+.footer-section .links-wrap a {
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.footer-section .custom-social a {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    align-items: center;
+    background: #60412e;
+    color: var(--paper);
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.footer-section .custom-social a:hover {
+    background: var(--gold);
+    color: var(--wood-dark);
+}
+
+.footer-section .border-top {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.footer-section .copyright,
+.footer-section .copyright p {
+    color: #c9b6a2;
+}
+
+/* Newsletter */
+
+.subscription-form h3 {
+    color: var(--paper);
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.subscription-form .form-control {
+    min-height: 48px;
+    border: 1px solid #a88a70;
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--text-dark);
+}
+
+.subscription-form .form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(213, 170, 99, 0.2);
+}
+
+.subscription-form .btn {
+    min-height: 48px;
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--wood-dark);
+}
+
+/* Form controls */
+
+.form-control,
+.form-select {
+    background-color: var(--paper);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--paper);
+    border-color: var(--wood-light);
+    box-shadow: 0 0 0 3px rgba(145, 103, 68, 0.15);
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 767px) {
+    .hero {
+        padding: 55px 0 40px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero .hero-img-wrap img {
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        max-width: 100%;
+        margin-top: 30px;
+    }
+
+    .product-section,
+    .why-choose-section,
+    .we-help-section,
+    .testimonial-section,
+    .blog-section {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .product-section .product-item .product-thumbnail {
+        height: 180px;
+    }
+
+    .footer-section {
+        padding-top: 55px;
+    }
+}
