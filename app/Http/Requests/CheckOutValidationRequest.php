@@ -38,8 +38,9 @@ class CheckOutValidationRequest extends FormRequest
             'notes' => ['nullable', 'string', 'max:1000'],
 
             'payment_method' => [
-                'required'
-            ],
+    'required',
+    'in:cash_on_delivery,kashier',
+],
         ];
     }
     public function messages(): array

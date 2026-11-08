@@ -709,7 +709,7 @@
                             <div class="field full">
                                 <label for="notes">Order Notes <span class="optional">(Optional)</span></label>
                                 <textarea id="notes" name="notes" rows="3"
-                                    placeholder="Special instructions for delivery..." value="{{ old('notes') }}"></textarea>
+    placeholder="Special instructions for delivery...">{{ old('notes') }}</textarea>
 
                                     @error('notes')
                                     <p style="color:red;">.{{ $message }} </p>
@@ -734,7 +734,7 @@
 
                         <div class="payment-options">
                             <label class="payment-option selected">
-                                <input type="radio" name="payment_method" value="cod" checked>
+                                <input type="radio" name="payment_method" value="cash_on_delivery" checked>
                                 <span class="payment-icon">
                                     <i class="fa-solid fa-money-bill-wave"></i>
                                 </span>
@@ -746,7 +746,7 @@
                             </label>
 
                             <label class="payment-option">
-                                <input type="radio" name="payment_method" value="card">
+                                <input type="radio" name="payment_method" value="kashier">
                                 <span class="payment-icon">
                                     <i class="fa-regular fa-credit-card"></i>
                                 </span>

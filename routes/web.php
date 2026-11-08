@@ -9,6 +9,7 @@ use App\Http\Controllers\UserOrders;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KashierPaymentController;
 
 Route::get('/', function () {
     return view('Home');
@@ -132,5 +133,23 @@ Route::middleware('auth')->get('/my-orders', [
     UserOrders::class,
     'myOrders'
 ])->name('my.orders');
+
+Route::middleware('auth')->post('/my-orders/{orderId}/retry-payment', [
+    UserOrders::class,
+    'retryPayment'
+])->name('my.orders.retry-payment');
+
+
+#---------------------- Kashier Payment Routes ----------------------#
+
+Route::get('/payment/kashier/return', [
+    KashierPaymentController::class,
+    'handleRedirect'
+])->name('payment.callback');
+
+Route::post('/payment/kashier/webhook', [
+    KashierPaymentController::class,
+    'webhook'
+])->name('payment.webhook');
 
 

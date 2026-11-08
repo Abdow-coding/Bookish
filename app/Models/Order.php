@@ -22,14 +22,27 @@ class Order extends Model
     'notes',
     'status',
     'payment_method',
-    'payment_status'
+    'payment_status',
+    'payment_reference',
+'payment_transaction_id',
+'paid_at',
+'stock_released_at',
+'payment_session_id',
 ];
 
+protected function casts(): array
+{
+    return [
+        'order_date' => 'datetime',
+        'paid_at' => 'datetime',
+        'stock_released_at' => 'datetime',
+    ];
+}
 
-
-    public function users(){
-        return $this->belongsTo(Users::class);
-    }
+    public function users()
+{
+    return $this->belongsTo(Users::class, 'user_id', 'id');
+}
    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class, 'order_id');

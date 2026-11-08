@@ -131,9 +131,26 @@
         color: #c77716;
     }
 
-    .status-badge.completed {
+    .status-badge.completed,
+    .status-badge.paid {
         background: #dcfce7;
         color: #15803d;
+    }
+
+    .status-badge.failed,
+    .status-badge.cancelled {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .status-badge.processing {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .status-badge.unknown {
+        background: #eee7df;
+        color: #796b60;
     }
 
     .empty-orders {
@@ -198,6 +215,17 @@
     <div class="my-orders-container">
 
         <header class="orders-header">
+            @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
             <span class="orders-subtitle">BOOKISH</span>
             <h1>My Orders</h1>
             <p>Track your orders and check their current status.</p>
@@ -227,8 +255,11 @@
                                 <th>Book</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
+                                <th>Payment Method</th>
+                                <th>Payment Status</th>
                                 <th>Date</th>
-                                <th>Status</th>
+                                <th>Order Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
@@ -251,7 +282,21 @@
                                         <td>{{ $item->quantity }}</td>
 
                                         <td class="order-price">
-                                            {{ number_format($order->total_price, 2) }} EGP
+                                            ${{ number_format($order->total_price, 2) }} USD
+                                        </td>
+
+                                        <td>
+                                            {{ ucwords(str_replace('_', ' ', $order->payment_method ?? 'N/A')) }}
+                                        </td>
+
+                                        <td>
+                                            @php
+                                                $paymentStatus = strtolower($order->payment_status ?? 'unknown');
+                                            @endphp
+
+                                            <span class="status-badge {{ $paymentStatus }}">
+                                                {{ ucfirst($paymentStatus) }}
+                                            </span>
                                         </td>
 
                                         <td>
@@ -259,10 +304,32 @@
                                         </td>
 
                                         <td>
-                                            <span class="status-badge {{ $order->status }}">
-                                                {{ ucfirst($order->status) }}
+                                            @php
+                                                $orderStatus = strtolower($order->status ?? 'unknown');
+                                            @endphp
+
+                                            <span class="status-badge {{ $orderStatus }}">
+                                                {{ ucfirst($orderStatus) }}
                                             </span>
                                         </td>
+                                        <td>
+    @if(
+    $loop->first &&
+    $order->payment_method === 'kashier' &&
+    $order->payment_status === 'pending'
+)
+    <form action="{{ route('my.orders.retry-payment', $order->id) }}"
+          method="POST">
+        @csrf
+
+        <button type="submit" class="shop-link">
+            Retry Payment
+        </button>
+    </form>
+@else
+    <span>—</span>
+@endif
+</td>
                                     </tr>
                                 @endforeach
                             @endforeach

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+use App\Services\KashierPaymentService;
 
 class OrderController extends Controller
 {
@@ -62,7 +64,8 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      */
 
-public function store(CheckOutValidationRequest $request)
+public function store(CheckOutValidationRequest $request,KashierPaymentService $kashierPaymentService)
+
 {
     $userId = Auth::id();
 
@@ -109,22 +112,22 @@ public function store(CheckOutValidationRequest $request)
         }
 
         $order = Order::create([
-            'user_id' => $userId,
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'phone' => $validated['phone'],
-            'country' => $validated['country'],
-            'city' => $validated['city'],
-            'address' => $validated['address'],
-            'address_details' => $validated['address_details'] ?? null,
-            'notes' => $validated['notes'] ?? null,
-            'total_price' => $total,
-            'order_date' => now(),
-            'payment_method' => $validated['payment_method'],
-            'payment_status' => $validated['payment_method'] === 'cash_on_delivery'
-                ? 'pending'
-                : 'pending',
-        ]);
+    'user_id' => $userId,
+    'payment_reference' => 'BOOKISH-' . strtoupper((string) Str::uuid()),
+
+    'first_name' => $validated['first_name'],
+    'last_name' => $validated['last_name'],
+    'phone' => $validated['phone'],
+    'country' => $validated['country'],
+    'city' => $validated['city'],
+    'address' => $validated['address'],
+    'address_details' => $validated['address_details'] ?? null,
+    'notes' => $validated['notes'] ?? null,
+    'total_price' => $total,
+    'order_date' => now(),
+    'payment_method' => $validated['payment_method'],
+    'payment_status' => 'pending',
+]);
 
         foreach ($cartItems as $item) {
             $product = $products->get($item->id);
@@ -143,9 +146,15 @@ public function store(CheckOutValidationRequest $request)
         return $order;
     });
 
-    return redirect()->route('thankyou', [
-        'id' => $order->id,
-    ]);
+    if ($order->payment_method === 'kashier') {
+    $session = $kashierPaymentService->createSession($order);
+
+    return redirect()->away($session['session_url']);
+}
+
+return redirect()->route('thankyou', [
+    'id' => $order->id,
+]);
 }
 
 

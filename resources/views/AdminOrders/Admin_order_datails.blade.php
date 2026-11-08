@@ -417,6 +417,38 @@
                 padding: 18px;
             }
         }
+
+        .payment-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .payment-status.paid,
+        .payment-status.success {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .payment-status.pending {
+            background: #fff0d9;
+            color: #c77716;
+        }
+
+        .payment-status.failed,
+        .payment-status.cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .payment-status.unknown {
+            background: #eee7df;
+            color: #796b60;
+        }
     </style>
     <main class="orders-page">
         <header class="orders-header">
@@ -445,7 +477,8 @@
                             <th>quantity</th>
                             <th>Total Price</th>
                             <th>Date</th>
-                            <th>Status</th>
+                            <th>Order Status</th>
+                            <th>Payment Status</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -460,26 +493,37 @@
                             <td class="order-price">{{ number_format($d->total_price) }} <small>$</small></td>
                             <td> {{ \Carbon\Carbon::parse($d->order_date)->format('Y-m-d') }}</td>
                             <td>
-       <select
-    class="status-dropdown {{ strtolower($d->status) }}"
-    data-order-id="{{ $d->id }}"
-    data-status-url="{{ route('admin.orders.updateStatus', $d->id) }}">
+                                <select
+                                    class="status-dropdown {{ strtolower($d->status) }}"
+                                    data-order-id="{{ $d->id }}"
+                                    data-status-url="{{ route('admin.orders.updateStatus', $d->id) }}">
 
-    <option value="pending"
-        {{ strtolower($d->status) === 'pending' ? 'selected' : '' }}>
-        Pending
-    </option>
+                                    <option value="pending"
+                                        {{ strtolower($d->status) === 'pending' ? 'selected' : '' }}>
+                                        Pending
+                                    </option>
 
-    <option value="processing"
-        {{ strtolower($d->status) === 'processing' ? 'selected' : '' }}>
-        Processing
-    </option>
+                                    <option value="processing"
+                                        {{ strtolower($d->status) === 'processing' ? 'selected' : '' }}>
+                                        Processing
+                                    </option>
 
-    <option value="completed"
-        {{ strtolower($d->status) === 'completed' ? 'selected' : '' }}>
-        Completed
-    </option>
-</select>
+                                    <option value="completed"
+                                        {{ strtolower($d->status) === 'completed' ? 'selected' : '' }}>
+                                        Completed
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                @php
+                                $paymentStatus = strtolower($d->payment_status ?? 'unknown');
+                                @endphp
+
+                                <span class="payment-status {{ $paymentStatus }}">
+                                    {{ $d->payment_status
+            ? ucfirst(str_replace('_', ' ', $d->payment_status))
+            : 'N/A' }}
+                                </span>
                             </td>
                             <td><button class="view-order-btn" type="button"><i class="fa-regular fa-eye"></i> View Details</button></td>
                         </tr>
@@ -587,70 +631,93 @@
 
 
 
-    document.querySelectorAll('.status-dropdown').forEach(select => {
-        select.dataset.previousStatus = select.value;
+        document.querySelectorAll('.status-dropdown').forEach(select => {
+            select.dataset.previousStatus = select.value;
 
-        select.addEventListener('change', async function () {
-            const orderId = this.dataset.orderId;
-            const previousStatus = this.dataset.previousStatus;
-            const newStatus = this.value;
+            select.addEventListener('change', async function() {
+                const orderId = this.dataset.orderId;
+                const previousStatus = this.dataset.previousStatus;
+                const newStatus = this.value;
 
-            this.disabled = true;
+                this.disabled = true;
 
-            try {
-                const response = await fetch(this.dataset.statusUrl, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector(
-                'meta[name="csrf-token"]'
-            ).content
-        },
-        body: JSON.stringify({
-            status: newStatus
-        })
-    });
+                try {
+                    const response = await fetch(this.dataset.statusUrl, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content
+                        },
+                        body: JSON.stringify({
+                            status: newStatus
+                        })
+                    });
 
-                const responseText = await response.text();
+                    const responseText = await response.text();
 
-                if (!response.ok) {
-                    console.error('HTTP Status:', response.status);
-                    console.error('Server Response:', responseText);
+                    if (!response.ok) {
+                        console.error('HTTP Status:', response.status);
+                        console.error('Server Response:', responseText);
 
-                    throw new Error(
-                        `Request failed: ${response.status}. Check Console.`
-                    );
-                }
+                        throw new Error(
+                            `Request failed: ${response.status}. Check Console.`
+                        );
+                    }
 
-                const result = JSON.parse(responseText);
+                    const result = JSON.parse(responseText);
 
-                if (!result.success) {
-                    throw new Error(result.message || 'Update failed');
-                }
+                    if (!result.success) {
+                        throw new Error(result.message || 'Update failed');
+                    }
 
-                this.dataset.previousStatus = result.status;
-                updateStatusColor(this);
+                    this.dataset.previousStatus = result.status;
+updateStatusColor(this);
 
-            } catch (error) {
-                this.value = previousStatus;
-                updateStatusColor(this);
-                console.error('Status update error:', error);
-                alert(error.message);
+// Update payment status immediately
+if (result.payment_status) {
+    const orderRows = document.querySelectorAll(
+        '#ordersTable tbody tr'
+    );
 
-            } finally {
-                this.disabled = false;
+    orderRows.forEach(row => {
+        if (row.dataset.orderId === String(orderId)) {
+            const paymentStatusElement = row.querySelector('.payment-status');
+
+            if (paymentStatusElement) {
+                const paymentStatus = result.payment_status.toLowerCase();
+
+                paymentStatusElement.className =
+                    'payment-status ' + paymentStatus;
+
+                paymentStatusElement.textContent =
+                    paymentStatus.charAt(0).toUpperCase() +
+                    paymentStatus.slice(1).replaceAll('_', ' ');
             }
+        }
+    });
+}
+
+                } catch (error) {
+                    this.value = previousStatus;
+                    updateStatusColor(this);
+                    console.error('Status update error:', error);
+                    alert(error.message);
+
+                } finally {
+                    this.disabled = false;
+                }
+            });
+
+            updateStatusColor(select);
         });
 
-        updateStatusColor(select);
-    });
-
-    function updateStatusColor(select) {
-        select.classList.remove('pending', 'completed');
-        select.classList.add(select.value);
-    }
-
+        function updateStatusColor(select) {
+            select.classList.remove('pending', 'completed');
+            select.classList.add(select.value);
+        }
     </script>
 
     @endsection

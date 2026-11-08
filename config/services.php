@@ -34,5 +34,14 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+'kashier' => [
+    'merchant_id' => env('KASHIER_MERCHANT_ID'),
+    'api_key' => env('KASHIER_API_KEY'),
+    'secret_key' => env('KASHIER_SECRET_KEY'),
+    'transfer_api_key' => env('KASHIER_TRANSFER_API_KEY'),
+    'base_url' => env('KASHIER_BASE_URL'),
+    'checkout_url' => env('KASHIER_CHECKOUT_URL'),
+    'webhook_url' => env('KASHIER_WEBHOOK_URL'),
+],
 
 ];
